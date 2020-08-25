@@ -12,14 +12,15 @@ extension ViewController: WKNavigationDelegate {
         let displayLink = CADisplayLink(
                 target: self,
                 selector: #selector(self.snapshoter))
-            displayLink.preferredFramesPerSecond = 5
-        displayLink.add(to: .main, forMode: .default)
+            displayLink.preferredFramesPerSecond = 3
+        displayLink.add(to: .current, forMode: .common)
     }
     @objc fileprivate func snapshoter() {
         self.webView.takeSnapshot(with: nil) { image, error in
             guard let image = image, error == nil else { return }
             //print("Snapshot -- \(Date())")
-            self.testImage = image
+            
+            self.rectView?.imageInput(image)
         }
     }
 }

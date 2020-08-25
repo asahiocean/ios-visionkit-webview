@@ -3,133 +3,30 @@ import WebKit
 import CoreML
 import Vision
 
-class ViewController: UIViewController, UIGestureRecognizerDelegate {
-
-    @IBOutlet weak var webView: WKWebView!
+class ViewController: UIViewController {
     @IBOutlet weak var addressBar: UITextField!
     @IBOutlet weak var backButton: UIBarButtonItem!
     @IBOutlet weak var forwardButton: UIBarButtonItem!
     @IBOutlet weak var refreshButton: UIBarButtonItem!
     
-    let modelURL = Bundle.main.url(forResource: "YOLOv3Tiny", withExtension: "mlmodelc")!
-    var pathLayer: CALayer? = CALayer()
+    var rectView: HandleDetectedRectangles!
+    var webView: Web!
     
-    var testImage: UIImage? = nil {
-        willSet {
-            guard self.testImage == nil else { return }
-            print("webView.takeSnapshot: ✅")
-        }
-        didSet {
-            guard let image = testImage else { return }
-            let orientation = CGImagePropertyOrientation(image.imageOrientation)
-            guard let cgimage = image.cgImage else { return }
-            
-            let requests = handleDetectedRectangles()
-
-            let imageRequestHandler = VNImageRequestHandler(
-                cgImage: cgimage)
-
-            DispatchQueue.main.async {
-                do {
-                    try imageRequestHandler.perform(requests)
-                } catch let error as NSError {
-                    print("Failed to perform image request: \(error)")
-                    return
-                }
-            }
-
-        }
+    override func loadView() {
+        super.loadView()
+        self.webView = Web(frame: CGRect(x: view.frame.minX, y: view.frame.minY, width: view.frame.width, height: view.bounds.height - 50))
+        self.webView.navigationDelegate = self
     }
-    
-    fileprivate func handleDetectedRectangles() -> [VNCoreMLRequest] {
-        guard let model = try? VNCoreMLModel(for: MLModel(contentsOf: modelURL)) else { fatalError() }
-        return [VNCoreMLRequest(model: model, completionHandler: { request, error in
-            guard error == nil else { return }
-            
-            DispatchQueue.main.async {
-                guard let drawLayer = self.pathLayer,
-                    let results = request.results as? [VNRecognizedObjectObservation]
-                    else { return }
-                
-                CATransaction.begin()
-                for result in results {
-                    let rectBox = self.boundingBox(forRegionOfInterest: result.boundingBox, withinImageBounds: self.webView.bounds)
-                    let rectLayer = self.shapeLayer(color: .blue, frame: rectBox)            // Add to pathLayer on top of image.
-                    self.webView.layer.addSublayer(rectLayer)
-                    
-                    let len = result.labels.count > 5 ? 1 : result.labels.count
-                    
-                    for i in 0..<len {
-                        let identifier = result.labels[i].identifier
-                        let confidence = results[i].confidence
-                                                
-                        print("detected: \(identifier)\n  – conf: \(confidence)\n  – pos: (x: \(Int(rectBox.minX)), y: \(Int(rectBox.minY)), width: \(Int(rectBox.maxX)), height: \(Int(rectBox.maxY)))\n", terminator: "\n")
-                    }
-                }
-                CATransaction.commit()
-                drawLayer.setNeedsDisplay()
-            }
-        })]
-    }
-        
-    fileprivate func boundingBox(forRegionOfInterest: CGRect, withinImageBounds bounds: CGRect) -> CGRect {
-        
-        let imageWidth = bounds.width
-        let imageHeight = bounds.height
-//        print("Image Width while creating bounding box",imageWidth)
-//        print("Image height while creating bounding box",imageHeight)
-        // Begin with input rect.
-        var rect = forRegionOfInterest
-        // Reposition origin.
-        rect.origin.x *= imageWidth
-        rect.origin.x += bounds.origin.x
-        rect.origin.y = (1 - rect.origin.y) * imageHeight + bounds.origin.y
-        // Rescale normalized coordinates.
-        rect.size.width *= imageWidth
-        rect.size.height *= imageHeight
-        rect.origin.x-=3
-        rect.origin.y+=5
-        rect.size.width+=10
-        rect.size.height+=10
-//        print("Rectangle bOUNDING BOX", rect)
-        return rect
-    }
-    
-    fileprivate func shapeLayer(color: UIColor, frame: CGRect) -> CAShapeLayer {
-        // Create a new layer.
-//        print("Frame set to layer.frame", frame)
-        let layer = CAShapeLayer()
-        layer.name = "shapeLayer"
-        
-        // Configure layer's appearance.
-        layer.fillColor = nil // No fill to show boxed object
-        layer.shadowOpacity = 0
-        layer.shadowRadius = 0
-        layer.borderWidth = 3
-        
-        // Vary the line color according to input.
-        layer.borderColor = color.cgColor
-        
-        // Locate the layer.
-        layer.anchorPoint = .zero
-        layer.frame = frame
-        layer.masksToBounds = true
-        
-        // Transform the layer to have same coordinate system as the imageView underneath it.
-        layer.transform = CATransform3DMakeScale(1, -1, 1)
-//        print("layer.frame after transform", layer.frame)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
-            layer.removeFromSuperlayer()
-        }
-        return layer
-    }
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        webView.navigationDelegate = self
-        
+        self.rectView = HandleDetectedRectangles(frame: self.webView.frame)
+        self.view.addSubview(webView)
+        self.view.addSubview(self.rectView)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     // Did End On Exit
@@ -160,5 +57,20 @@ extension ViewController {
     }
     func convert(rect: CGRect) -> CGRect {
         return CGRect(origin: rect.origin, size: rect.size)
+    }
+}
+
+class Web: WKWebView {
+    let searchBar = UITextField()
+    
+    override init(frame: CGRect, configuration: WKWebViewConfiguration) {
+        super.init(frame: frame, configuration: configuration)
+        
+        self.backgroundColor = .systemRed
+        self.addSubview(searchBar)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 }
