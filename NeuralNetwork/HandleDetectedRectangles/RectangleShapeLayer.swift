@@ -1,7 +1,7 @@
 import UIKit
 
 class RectangleShapeLayer {
-    func painter(color: UIColor, frame: CGRect) -> CAShapeLayer {
+    func painter(color: UIColor, rect: CGRect) -> CAShapeLayer {
 
         //print("Frame set to layer.frame", frame)
         let layer = CAShapeLayer()
@@ -15,7 +15,8 @@ class RectangleShapeLayer {
         layer.borderColor = color.cgColor
         
         layer.anchorPoint = .zero
-        layer.frame = frame
+        layer.frame = rect
+        
         layer.masksToBounds = true
         
         layer.transform = CATransform3DMakeScale(1, -1, 1)

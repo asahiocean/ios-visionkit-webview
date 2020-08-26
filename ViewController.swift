@@ -1,7 +1,7 @@
 import UIKit
 import WebKit
 
-class ViewController: UIViewController, WKUIDelegate {
+class ViewController: UIViewController {
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var addressBar: UITextField!
     @IBOutlet weak var backButton: UIBarButtonItem!
@@ -12,14 +12,13 @@ class ViewController: UIViewController, WKUIDelegate {
     
     override func loadView() {
         super.loadView()
-        webView.uiDelegate = self
         webView.navigationDelegate = self
+        viewRect = HandleDetectedRectangles(frame: webView.bounds)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewRect = HandleDetectedRectangles(frame: webView.bounds)
-        self.webView.addSubview(viewRect)
+        self.view.addSubview(viewRect)
     }
     
     // Did End On Exit
