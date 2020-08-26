@@ -1,1 +1,1 @@
-![Test](https://i.ibb.co/pz9TYys/example.gif)
+![](https://media.giphy.com/media/jRH7MA401q5AQzkJpG/giphy.gif)
