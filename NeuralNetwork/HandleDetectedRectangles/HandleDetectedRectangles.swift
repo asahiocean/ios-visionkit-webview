@@ -57,14 +57,14 @@ final class HandleDetectedRectangles: UIView {
                 
                 CATransaction.begin()
                 for result in results {
+                    let frame = self.remake.boundingBox(bBox: result.boundingBox, bounds: self.bounds)
+                    let rectLayer = self.shapeLayer.painter(color: .systemBlue, frame: frame)
+
+                    self.layer.addSublayer(rectLayer)
+
                     let limit = result.labels.count > 5 ? 1 : result.labels.count
                     
                     for i in 0..<limit {
-                        let frame = self.remake.boundingBox(bBox: result.boundingBox, bounds: self.bounds)
-                        let rectLayer = self.shapeLayer.painter(color: .systemBlue, frame: frame)
-
-                        self.layer.addSublayer(rectLayer)
-                        
                         let identifier = result.labels[i].identifier
                         let confidence = results[i].confidence
                         
@@ -72,7 +72,6 @@ final class HandleDetectedRectangles: UIView {
                     }
                 }
                 CATransaction.commit()
-                self.setNeedsDisplay()
             }
         })]
     }

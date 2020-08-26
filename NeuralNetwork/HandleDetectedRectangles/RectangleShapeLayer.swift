@@ -5,8 +5,7 @@ class RectangleShapeLayer {
 
         //print("Frame set to layer.frame", frame)
         let layer = CAShapeLayer()
-        layer.name = "shapeLayer"
-                
+        layer.name = "RectangleShapeLayer"
         
         layer.fillColor = nil
         layer.shadowOpacity = 0
@@ -22,8 +21,9 @@ class RectangleShapeLayer {
         layer.transform = CATransform3DMakeScale(1, -1, 1)
         
         //print("layer.frame after transform", layer.frame)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+        layer.setNeedsDisplay()
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.20) {
             layer.removeFromSuperlayer()
         }
         return layer

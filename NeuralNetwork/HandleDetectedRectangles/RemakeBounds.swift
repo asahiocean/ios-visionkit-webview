@@ -23,7 +23,7 @@ class RemakeBounds {
         rect.size.height += 10
         
         //print("Rectangle bOUNDING BOX", rect)
-    
-    return rect
+
+        return rect
     }
 }

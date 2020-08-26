@@ -23,14 +23,10 @@ class ViewController: UIViewController {
         self.view.addSubview(viewRect)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
     // Did End On Exit
     @IBAction func changeURL(_ sender: UITextField) {
         guard let text = sender.text else { return }
-        self.webView.loader(text)
+        webView.loader(text)
     }
     
     @IBAction func backButtonPress(_ sender: UIBarButtonItem) {
