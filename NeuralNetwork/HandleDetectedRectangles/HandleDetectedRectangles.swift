@@ -3,7 +3,7 @@ import CoreML
 import Vision
 
 final class HandleDetectedRectangles: UIView {
-    
+
     fileprivate let remake = RemakeBounds()
     fileprivate let shapeLayer = RectangleShapeLayer()
     fileprivate var model: MLModel?
@@ -11,11 +11,11 @@ final class HandleDetectedRectangles: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        guard let modelURL = Bundle.main.url(forResource: "YOLOv3Tiny", withExtension: "mlmodelc")
-            else {
-                self.backgroundColor = .systemRed
-            return }
-        self.model = try? MLModel(contentsOf: modelURL)
+        let modelCheck = CheckModel()
+        self.model = modelCheck.model
+        
+        self.clipsToBounds = true
+        self.layer.masksToBounds = true
         
         // чтобы можно было нажать на webView
         self.isUserInteractionEnabled = false
@@ -57,8 +57,8 @@ final class HandleDetectedRectangles: UIView {
                 
                 CATransaction.begin()
                 for result in results {
-                    let frame = self.remake.boundingBox(bBox: result.boundingBox, bounds: self.bounds)
-                    let rectLayer = self.shapeLayer.painter(color: .systemBlue, frame: frame)
+                    let rect = self.remake.boundingBox(bBox: result.boundingBox, bounds: self.bounds)
+                    let rectLayer = self.shapeLayer.painter(color: .systemBlue, frame: rect)
 
                     self.layer.addSublayer(rectLayer)
 
@@ -68,7 +68,7 @@ final class HandleDetectedRectangles: UIView {
                         let identifier = result.labels[i].identifier
                         let confidence = results[i].confidence
                         
-                        print("detected: \(identifier)\n  – conf: \(confidence)\n  – pos: (x: \(Int(frame.minX)), y: \(Int(frame.minY)), width: \(Int(frame.maxX)), height: \(Int(frame.maxY)))\n", terminator: "\n")
+                        print("detected: \(identifier)\n  – conf: \(confidence)\n  – pos: (x: \(Int(rect.minX)), y: \(Int(rect.minY)), width: \(Int(rect.maxX)), height: \(Int(rect.maxY)))\n", terminator: "\n")
                     }
                 }
                 CATransaction.commit()
