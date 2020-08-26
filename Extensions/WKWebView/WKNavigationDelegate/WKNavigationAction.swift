@@ -20,7 +20,7 @@ extension ViewController: WKNavigationDelegate {
             guard let image = image, error == nil else { return }
             //print("Snapshot -- \(Date())")
             
-            self.rectView?.imageInput(image)
+            self.viewRect.inputImage(image: image)
         }
     }
 }

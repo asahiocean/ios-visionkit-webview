@@ -49,11 +49,23 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fld-97-D3n">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <wkWebViewConfiguration key="configuration">
+                                    <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
+                                    <wkPreferences key="preferences"/>
+                                </wkWebViewConfiguration>
+                            </wkWebView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="3uY-OT-Dcn" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="HE1-W8-gXv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="3uY-OT-Dcn" secondAttribute="trailing" id="NgE-1t-pH6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="fld-97-D3n" secondAttribute="bottom" id="QdK-9c-2oN"/>
+                            <constraint firstItem="fld-97-D3n" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Z2v-Oa-zLn"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="fld-97-D3n" secondAttribute="trailing" id="cEH-ar-OXo"/>
+                            <constraint firstItem="fld-97-D3n" firstAttribute="top" secondItem="3uY-OT-Dcn" secondAttribute="bottom" id="kky-7d-a3r"/>
                             <constraint firstItem="3uY-OT-Dcn" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tIH-MH-uXK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -63,6 +75,7 @@
                         <outlet property="backButton" destination="H66-n0-Wb6" id="S4m-Rq-t6i"/>
                         <outlet property="forwardButton" destination="DHk-NH-vrB" id="JYM-Uz-B09"/>
                         <outlet property="refreshButton" destination="Jma-59-jPW" id="Ide-IO-XxL"/>
+                        <outlet property="webView" destination="fld-97-D3n" id="nXi-Du-OEm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
