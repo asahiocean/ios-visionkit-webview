@@ -29,7 +29,7 @@ final class HandleDetectedRectangles: UIView {
         guard let cgimage = image.cgImage else { return }
         
         let requests = self.handleDetectedRectangles()
-
+        
         let request = VNImageRequestHandler(cgImage: cgimage, orientation: orientation, options: [:])
 
         DispatchQueue.global(qos: .userInteractive).async {

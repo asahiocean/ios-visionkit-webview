@@ -17,10 +17,10 @@ class BoundsRemake {
 
         rect.size.width *= width
         rect.size.height *= height
-        rect.origin.x -= 2.5
-        rect.origin.y += 5
-        rect.size.width += 10
-        rect.size.height += 10
+        rect.origin.x -= 0.5
+        rect.origin.y += 1.5
+        rect.size.width += 5
+        rect.size.height += 5
         //print("Rectangle: \(rect)")
         
         return rect
