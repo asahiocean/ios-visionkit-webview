@@ -5,14 +5,15 @@ class BoundsRemake {
         
         var rect = boundingBox
         
-        let width = view.frame.width
-        let height = view.frame.height
+        let frame = view.frame
+        let width = frame.width
+        let height = frame.height
         //print("Set width while creating bounding box: \(width)")
         //print("Set height while creating bounding box: \(height)")
         
         rect.origin.x *= width
-        rect.origin.x += view.frame.origin.x
-        rect.origin.y = (1 - rect.origin.y) * height + view.frame.origin.y
+        rect.origin.x += frame.origin.x
+        rect.origin.y = (1 - rect.origin.y) * height + frame.origin.y
 
         rect.size.width *= width
         rect.size.height *= height
