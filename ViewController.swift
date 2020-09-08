@@ -13,12 +13,12 @@ class ViewController: UIViewController {
     override func loadView() {
         super.loadView()
         webView.navigationDelegate = self
-        viewRect = HandleDetectedRectangles(frame: webView.bounds)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addSubview(viewRect)
+        self.viewRect = HandleDetectedRectangles(frame: self.webView.frame)
+        self.view.addSubview(self.viewRect)
     }
     
     // Did End On Exit

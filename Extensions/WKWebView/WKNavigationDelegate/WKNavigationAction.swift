@@ -1,10 +1,8 @@
-import Foundation
 import WebKit
-import Vision
 
 extension ViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-                
+        
         if let url = webView.url {
             self.addressBar.text = url.absoluteString
         }
@@ -12,7 +10,8 @@ extension ViewController: WKNavigationDelegate {
         let displayLink = CADisplayLink(
                 target: self,
                 selector: #selector(self.snapshoter))
-            displayLink.preferredFramesPerSecond = 3
+        
+        displayLink.preferredFramesPerSecond = 3
         displayLink.add(to: .current, forMode: .common)
     }
     @objc fileprivate func snapshoter() {

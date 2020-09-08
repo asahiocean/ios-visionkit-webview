@@ -11,16 +11,16 @@ class BoundsRemake {
         //print("Set width while creating bounding box: \(width)")
         //print("Set height while creating bounding box: \(height)")
         
-        rect.origin.x *= width
-        rect.origin.x += frame.origin.x
-        rect.origin.y = (1 - rect.origin.y) * height + frame.origin.y
+        rect.origin.x *= width + frame.origin.x
+        rect.origin.y = (1 - rect.origin.y) * height
 
         rect.size.width *= width
         rect.size.height *= height
-        rect.origin.x -= 0.5
-        rect.origin.y += 1.5
-        rect.size.width += 5
-        rect.size.height += 5
+        rect.origin.x -= 0
+        rect.origin.y -= 0
+        rect.size.width += 0
+        rect.size.height += 0
+        
         //print("Rectangle: \(rect)")
         
         return rect

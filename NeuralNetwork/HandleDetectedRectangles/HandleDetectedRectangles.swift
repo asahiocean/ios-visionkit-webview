@@ -3,16 +3,18 @@ import CoreML
 import Vision
 
 final class HandleDetectedRectangles: UIView {
-
-    fileprivate let remake = BoundsRemake()
-    fileprivate let shapeLayer = RectangleShapeLayer()
-    fileprivate let modelCheck = CheckModel()
-    fileprivate var mlmodel: MLModel!
+    internal let shapeLayer = RectangleShapeLayer()
+    internal let modelCheck = CheckModel()
+    internal let remake = BoundsRemake()
+    internal var mlmodel: MLModel!
+    
+    fileprivate let requestDispatch = DispatchQueue(label: "request.DispatchQueue", qos: .userInitiated, attributes: [], autoreleaseFrequency: .workItem)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.clipsToBounds = true
-        
+        self.layer.masksToBounds = true
+                
         self.mlmodel = modelCheck.model
         
         // чтобы можно было нажать на webView
@@ -25,14 +27,14 @@ final class HandleDetectedRectangles: UIView {
     }
     
     func inputImage(image: UIImage) {
-        let orientation = CGImagePropertyOrientation(image.imageOrientation)
+        let orient = CGImagePropertyOrientation(image.imageOrientation)
         guard let cgimage = image.cgImage else { return }
         
         let requests = self.handleDetectedRectangles()
         
-        let request = VNImageRequestHandler(cgImage: cgimage, orientation: orientation, options: [:])
+        let request = VNImageRequestHandler(cgImage: cgimage, orientation: orient, options: [:])
 
-        DispatchQueue.global(qos: .userInteractive).async {
+        requestDispatch.async {
             do {
                 try request.perform(requests)
             } catch let error as NSError {
@@ -40,35 +42,5 @@ final class HandleDetectedRectangles: UIView {
                 return
             }
         }
-    }
-
-    fileprivate func handleDetectedRectangles() -> [VNCoreMLRequest] {
-        guard let model = try? VNCoreMLModel(for: self.mlmodel)
-            else { fatalError("VNCoreMLModel") }
-        
-        return [VNCoreMLRequest(model: model, completionHandler: { request, error in
-            guard error == nil else { return }
-            
-            DispatchQueue.main.async {
-                guard let results = request.results as? [VNRecognizedObjectObservation]
-                    else { return }
-                
-                CATransaction.begin()
-                for result in results {
-                    let rect = self.remake.rect(boundingBox: result.boundingBox, view: self)
-                    let rectLayer = self.shapeLayer.painter(color: .systemBlue, rect: rect)
-
-                    self.layer.addSublayer(rectLayer)
-
-                    let limit = result.labels.count > 5 ? 1 : result.labels.count
-                    for i in 0..<limit {
-                        let identifier = result.labels[i].identifier
-                        let confidence = results[i].confidence
-                        print("detected: \(identifier)\n  – conf: \(confidence)\n  – pos: (x: \(Int(rect.minX)), y: \(Int(rect.minY)), width: \(Int(rect.maxX)), height: \(Int(rect.maxY)))\n", terminator: "\n")
-                    }
-                }
-                CATransaction.commit()
-            }
-        })]
     }
 }
