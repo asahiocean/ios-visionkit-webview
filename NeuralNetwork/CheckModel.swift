@@ -10,10 +10,9 @@ class CheckModel {
             fatalError("Can`t find Model")
         }
     }
-
+    
     fileprivate func checkModel(name: String) -> MLModel? {
-        guard let modelURL = Bundle.main.url(forResource: name, withExtension: "mlmodelc")
-            else { return nil }
+        guard let modelURL = Bundle.main.url(forResource: name, withExtension: "mlmodelc") else { return nil }
         return try! MLModel(contentsOf: modelURL)
     }
 }
