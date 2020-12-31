@@ -3,7 +3,7 @@ import AVFoundation
 import Vision
 
 class ViewController2: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
-
+    
     var bufferSize: CGSize = .zero
     var rootLayer: CALayer! = nil
     

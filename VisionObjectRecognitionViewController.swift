@@ -9,8 +9,7 @@ class VisionObjectRecognitionViewController: ViewController2 {
     // Vision parts
     private var requests = [VNRequest]()
     
-    @discardableResult
-    func setupVision() -> NSError? {
+    @discardableResult func setupVision() -> NSError? {
         // Setup Vision parts
         let error: NSError! = nil
         
