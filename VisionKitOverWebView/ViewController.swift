@@ -20,7 +20,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         viewRect = HandleDetectedRectangles(frame: webView.frame)
         self.view.addSubview(viewRect)
-        
     }
     
     // Did End On Exit
@@ -30,11 +29,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func backButtonPress(_ sender: UIBarButtonItem) {
-        webView.stopLoading(); webView.goBack()
+        webView.stopLoading()
+        webView.goBack()
     }
     
     @IBAction func forwardButtonPress(_ sender: UIBarButtonItem) {
-        webView.stopLoading(); webView.goForward()
+        webView.stopLoading()
+        webView.goForward()
     }
     
     @IBAction func refreshButtonPress(_ sender: UIBarButtonItem) {
