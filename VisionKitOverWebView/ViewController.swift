@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         viewRect = HandleDetectedRectangles(frame: webView.frame)
         self.view.addSubview(viewRect)
-
+        
     }
     
     // Did End On Exit
