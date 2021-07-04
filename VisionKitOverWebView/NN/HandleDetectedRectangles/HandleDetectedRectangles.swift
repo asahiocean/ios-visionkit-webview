@@ -13,8 +13,8 @@ class HandleDetectedRectangles: UIView {
         
         // https://developer.apple.com/machine-learning/models/
         guard let modelURL = Bundle.main.url(forResource: "YOLOv3Tiny", withExtension: "mlmodelc")
-            else {
-                self.backgroundColor = .systemRed
+        else {
+            self.backgroundColor = .systemRed
             return }
         self.model = try? MLModel(contentsOf: modelURL)
         
@@ -31,9 +31,9 @@ class HandleDetectedRectangles: UIView {
         guard let cgimage = image.cgImage else { return }
         
         let requests = self.handleDetectedRectangles()
-
+        
         let imageRequestHandler = VNImageRequestHandler(cgImage: cgimage, orientation: orientation, options: [:])
-
+        
         DispatchQueue.global(qos: .userInteractive).async {
             do {
                 try imageRequestHandler.perform(requests)
@@ -43,17 +43,17 @@ class HandleDetectedRectangles: UIView {
             }
         }
     }
-
+    
     fileprivate func handleDetectedRectangles() -> [VNCoreMLRequest] {
         guard let model = try? VNCoreMLModel(for: self.model!)
-            else { fatalError("VNCoreMLModel") }
+        else { fatalError("VNCoreMLModel") }
         
         return [VNCoreMLRequest(model: model, completionHandler: { request, error in
             guard error == nil else { return }
             
             DispatchQueue.main.async {
                 guard let results = request.results as? [VNRecognizedObjectObservation]
-                    else { return }
+                else { return }
                 
                 CATransaction.begin()
                 for result in results {
@@ -62,7 +62,7 @@ class HandleDetectedRectangles: UIView {
                     for i in 0..<len {
                         let identifier = result.labels[i].identifier
                         let confidence = results[i].confidence
-                                      
+                        
                         let frame = self.remake.boundingBox(bBox: result.boundingBox, bounds: self.bounds)
                         let rectLayer = self.shapeLayer.painter(color: .systemBlue, frame: frame)
                         
