@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D2C56B026725A2100FB4C4D /* YOLOv3Tiny.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C56AF26725A2100FB4C4D /* YOLOv3Tiny.mlmodel */; };
-		3D2C56B126725A2100FB4C4D /* YOLOv3Tiny.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C56AF26725A2100FB4C4D /* YOLOv3Tiny.mlmodel */; };
-		3D2C56B226725A2100FB4C4D /* YOLOv3Tiny.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 3D2C56AF26725A2100FB4C4D /* YOLOv3Tiny.mlmodel */; };
 		FA8B5CD124F12196004416F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B5CD024F12196004416F6 /* AppDelegate.swift */; };
 		FA8B5CD324F12196004416F6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B5CD224F12196004416F6 /* SceneDelegate.swift */; };
 		FA8B5CD524F12196004416F6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA8B5CD424F12196004416F6 /* ViewController.swift */; };
@@ -48,7 +45,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3D2C56AF26725A2100FB4C4D /* YOLOv3Tiny.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = YOLOv3Tiny.mlmodel; sourceTree = "<group>"; };
 		FA8B5CCD24F12196004416F6 /* VisionKitOverWebView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VisionKitOverWebView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA8B5CD024F12196004416F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FA8B5CD224F12196004416F6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -224,7 +220,6 @@
 		FADDF90324F5C4AC00EF6CF5 /* MLModels */ = {
 			isa = PBXGroup;
 			children = (
-				3D2C56AF26725A2100FB4C4D /* YOLOv3Tiny.mlmodel */,
 			);
 			path = MLModels;
 			sourceTree = "<group>";
@@ -368,7 +363,6 @@
 				FA8B5D0E24F146BE004416F6 /* WKWebView_load.swift in Sources */,
 				FA8B5CD124F12196004416F6 /* AppDelegate.swift in Sources */,
 				FA8B5D0C24F1466C004416F6 /* fixProtocol.swift in Sources */,
-				3D2C56B026725A2100FB4C4D /* YOLOv3Tiny.mlmodel in Sources */,
 				FA8B5CD324F12196004416F6 /* SceneDelegate.swift in Sources */,
 				FA8B5D0924F14636004416F6 /* WKNavigationAction.swift in Sources */,
 				FADDF90224F5C35D00EF6CF5 /* RemakeBounds.swift in Sources */,
@@ -379,7 +373,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D2C56B126725A2100FB4C4D /* YOLOv3Tiny.mlmodel in Sources */,
 				FA8B5CE824F12197004416F6 /* VisionKitOverWebViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,7 +381,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D2C56B226725A2100FB4C4D /* YOLOv3Tiny.mlmodel in Sources */,
 				FA8B5CF324F12197004416F6 /* VisionKitOverWebViewUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
