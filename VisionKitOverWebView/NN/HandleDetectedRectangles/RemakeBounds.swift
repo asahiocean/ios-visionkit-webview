@@ -10,7 +10,7 @@ class RemakeBounds {
         
         //print("Width while creating bounding box", width)
         //print("Height while creating bounding box", height)
-
+        
         rect.origin.x *= width
         rect.origin.x += bounds.origin.x
         rect.origin.y = (1 - rect.origin.y) * height + bounds.origin.y
@@ -23,7 +23,7 @@ class RemakeBounds {
         rect.size.height += 10
         
         //print("Rectangle bOUNDING BOX", rect)
-    
-    return rect
+        
+        return rect
     }
 }
