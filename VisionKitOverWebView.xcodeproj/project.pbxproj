@@ -201,7 +201,6 @@
 		FADDF8FD24F5C24500EF6CF5 /* NN */ = {
 			isa = PBXGroup;
 			children = (
-				FADDF90324F5C4AC00EF6CF5 /* MLModels */,
 				FADDF8FE24F5C25E00EF6CF5 /* HandleDetectedRectangles */,
 			);
 			path = NN;
@@ -215,13 +214,6 @@
 				FAF492D424F5EBFD0052194E /* RectangleShapeLayer.swift */,
 			);
 			path = HandleDetectedRectangles;
-			sourceTree = "<group>";
-		};
-		FADDF90324F5C4AC00EF6CF5 /* MLModels */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = MLModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
